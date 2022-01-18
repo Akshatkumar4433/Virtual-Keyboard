@@ -1,6 +1,74 @@
-body {
-  margin: 0;
+.keyboard {
+  width: 70%;
+  font-size: 30px;;
+  font-family:sans-serif;
+  margin-right: auto;
+  margin-left: auto;
 }
-h1 {
-  color:red;
+.container {
+  border:1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap:1px;
+}
+
+/*
+.box {
+  flex: 1 0 9%;
+  width:65px;
+  height: 50px;
+}
+*/
+.box {
+  width: 9%;
+}
+/*
+.item-alphabets {
+  width: 9%
+}
+*/
+.item-return {
+  width: 20%;
+  background-image: url(http://th07.deviantart.net/fs70/150/i/2013/012/c/6/rock_01_png___by_alzstock-d5r84up.png)
+}
+.item-shift {
+  width:20%;
+}
+.item-space {
+  width: 50%;
+}
+.item-DEL {
+   width: 15%
+}
+.item-MISC {
+  width:30%
+}
+/*
+.all-items {
+  width:11%
+}
+*/
+/*
+.item-DEL {
+   width: 10%
+}
+.item-shift {
+  width:20%;
+}
+
+.item-space {
+  width: 50%;
+}
+
+.item-return {
+  width: 20%;
+}
+*/
+.screen {
+  color:white;
+  border:1px solid black;
+  background-color: black;
+  max-width: 100%;
+  height: 200px;
 }

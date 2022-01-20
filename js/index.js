@@ -1,15 +1,19 @@
-const english = ['q','w','e','r','t', 'y',
+const englishInLowerCase = ['q','w','e','r','t', 'y',
           'u','i','o', 'p','a','s',
           'd','f','g','h','j','k',
            'i', 'z','x',
            'c','v','b','n','m',];
 
+const englishInUpperCase = englishInLowerCase.map(element => {
+                              return element.toUpperCase();
+                            })
 
 const special = ['1', '2' ,'3','4','5','6' ,
                  '7','8','9','0',',','.',
                   '{',"}",'(', ")", '$','!',
                    "@",'#',"+",'-','/',
                     "*",'_',"%",];
+
 //24
 Vue.component('key',{
    props:['keyInfo'],
@@ -21,21 +25,35 @@ Vue.component('key',{
 })
 
 data = {
-     alphabetList: this.alphabetListToDataset(english)
+     //alphabetList: this.alphabetListToDataset(english)
+     languageInLowerCase:englishInLowerCase,
+     languageInUpperCase: englishInUpperCase,
+     special:special,
+     alphabetList: [],
+     displayText: "",
+     is123: false,
+     isShiftOn:false,
 }
 
 methods = {
      alphabetListToDataset: alphabetListToDataset,
+     task:task,
 }
 
-new Vue({el:'#app',data, methods})
-
+new Vue({el:'#app',
+        data,
+        methods,
+        created: function() {
+          this.alphabetList = this.alphabetListToDataset(this.languageInLowerCase)
+        },
+       })
 
 
 
 function alphabetListToDataset(alphabetList) {
      let Dataset = [];
      let KeyboardSize = 32;
+     let task = this.task;
      for(let i = 0, j = 0; i<KeyboardSize; i++) {
        let element = {id:i+1,
                       character:'',
@@ -80,11 +98,40 @@ function alphabetListToDataset(alphabetList) {
      return Dataset;
 }
 
-
-/***************
-These are expriemnt
-*******/
-
-function task(button) {
-  console.log(button)
-}
+function task(character) {
+    if (character == 'return') {
+         this.displayText += '\n'
+    }
+    else if (character == 'DEL') {
+         this.displayText = this.displayText.slice(0,this.displayText.length - 1);
+    }
+    else if (character == 'space') {
+        this.displayText += " "
+    }
+    else if (character == '123') {
+       if (!this.is123) {
+         this.alphabetList = this.alphabetListToDataset(this.special);
+         this.is123 = true
+       }
+       else {
+         this.alphabetList = this.alphabetListToDataset(this.languageInLowerCase);
+         this.is123 = false;
+       }
+    }
+    else if (character == 'MISC') {
+      console.log('do nothing')
+    }
+   else if (character == 'shift') {
+       if (!this.isShiftOn && !this.is123) {
+         this.alphabetList = this.alphabetListToDataset(this.languageInUpperCase)
+         this.isShiftOn = true;
+       }
+       else {
+         this.alphabetList = this.alphabetListToDataset(this.languageInLowerCase)
+         this.isShiftOn = false;
+       }
+   }
+   else {
+   this.displayText += character;
+ }
+ }
